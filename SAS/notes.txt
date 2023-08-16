@@ -1,0 +1,6 @@
+API Development
+
+Tech stack:
+    Postgresql database
+    Fast API -> For all API developmet.
+    Pydantic for data validation
