@@ -1,12 +1,18 @@
-from fastapi import Depends, FastAPI, Request, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers.api import router as router_api
 
+from SAS.db.session import engine
+from SAS.db.base import Base
 
+from SAS.routers.api import router as router_api
+from SAS.routes import router as main_route
 
 ###
 # Main application file
 ###
+
+def create_tables():
+	Base.metadata.create_all(bind=engine)
 
 def get_application() -> FastAPI:
     ''' Configure, start and return the application '''
@@ -14,7 +20,12 @@ def get_application() -> FastAPI:
     ## Start FastApi App
     application = FastAPI()
 
+    # Creating all database tables
+    create_tables()
+
+
     ## Mapping api routes
+    application.include_router(main_route)
     application.include_router(router_api, prefix="/api")
 
     ## Add exception handlers

@@ -1,12 +1,15 @@
-from main import *
+from SAS.main import *
 
+from fastapi import APIRouter
 from fastapi_utils.session import FastAPISessionMaker
 from fastapi_utils.tasks import repeat_every
 
 # import httpx
 
+router = APIRouter()
 
 
-@app.get("/")
-async def root():
-    return {"200": "200"} 
+
+@router.get("/")
+async def api_users_signup():
+    return {"200": "200"}
